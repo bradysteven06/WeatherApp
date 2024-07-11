@@ -7,7 +7,7 @@ function Search({ onSearch }) {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSearch(location);
+        onSearch(location); // Pass the location to the onSearch function
     };
 
     return (
