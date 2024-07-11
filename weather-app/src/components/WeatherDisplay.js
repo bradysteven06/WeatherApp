@@ -1,6 +1,8 @@
 import React from 'react';
 
+// WeatherDisplay component for showing current weather information
 function WeatherDisplay({ weatherData }) {
+    // If no weather data is available, return null
     if (!weatherData) return null;
 
     return (

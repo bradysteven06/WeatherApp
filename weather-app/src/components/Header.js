@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Header component for displaying the application title
 function Header() {
     return (
         <header className="my-4">

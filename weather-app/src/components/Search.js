@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+// Search component for inputting the location
 function Search({ onSearch }) {
     const [location, setLocation] = useState('');
 
+    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         onSearch(location);
