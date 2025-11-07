@@ -32,7 +32,7 @@ export default function WeatherDisplay({ data, unit = 'imperial' }) {
                     <div>
                         <div className="fw-semibold">{w?.main || '-'}</div>
                         <small className="text-muted">
-                            Feels like {Math.round(main.feel_like)}{showUnit}
+                            Feels like {Math.round(main.feels_like)}{showUnit}
                             {' · '}Humidity {main.humidity}% 
                             {' · '}Wind {Math.round(wind?.speed ?? 0)} {windUnit}
                         </small>

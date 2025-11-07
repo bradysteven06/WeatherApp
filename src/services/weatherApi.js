@@ -49,7 +49,7 @@ function writeCache(city, unit, data) {
 export async function getCurrentWeather(city, unit = 'imperial') {
     if (!KEY) {
         throw new Error(
-            'Missing OpenWeatherMap key. Add VITE_OWN_API_KEY to .env.local.'
+            'Missing OpenWeatherMap key. Add VITE_OWM_API_KEY to .env.local.'
         );
     }
 
@@ -78,7 +78,7 @@ export async function getCurrentWeather(city, unit = 'imperial') {
                 feels_like: data.main?.feels_like,
                 humidity: data.main?.humidity,
             },
-            weather: data.weather, // array, e.g., [{ main: "Clouds", description: "overcase clouds", icon: "04d" }]
+            weather: data.weather, // array, e.g., [{ main: "Clouds", description: "overcast clouds", icon: "04d" }]
             wind: data.wind,
             sys: data.sys, // sunrise/sunset, country
             unit, // echo back which unit we used (handy for display decisions)

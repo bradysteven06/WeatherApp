@@ -2,7 +2,7 @@
 
 React + Vite + Bootstrap weather viewer using a public API.
 
-![build](https://img.shields.io/badge/build-GitHub%20Actions-inactive)
+[![Deploy to GitHub Pages](https://github.com/bradysteven06/WeatherApp/actions/workflows/deploy.yml/badge.svg)](https://github.com/bradysteven06/WeatherApp/actions/workflows/deploy.yml)
 
 ## Live Site
 - (After CI/CD) https://bradysteven06.github.io/WeatherApp/

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar';
 import WeatherDisplay from './components/WeatherDisplay';
 import ToggleTheme from './components/ToggleTheme';
@@ -8,6 +8,10 @@ import { getCurrentWeather } from './services/weatherApi';
 export default function App() {
   // app wide theme (Bootstrap reads data-bs-theme on <html>)
   const [theme, setTheme] = useState('light');
+  // ensure Bootstrap reads the initial theme
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', theme);
+  }, [theme]);
   
   const [unit] = useState('imperial'); // TODO: add toggle for unit
   
@@ -37,7 +41,6 @@ export default function App() {
   const onToggleTheme = () => {
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
-    document.documentElement.setAttribute('data-bs-theme', next);
   };
 
   return (
@@ -52,7 +55,7 @@ export default function App() {
       <SearchBar onSearch={onSearch} />
 
       {/* Loading feedback to help user understand what's happening */}
-      {!loading && <p className="mt-3 text-muted">Loading weather...</p>}
+      {loading && <p className="mt-3 text-muted">Loading weather...</p>}
 
       {/* Either show the data or and actionable error */}
       {!loading && <WeatherDisplay data={data} unit={unit} />}
