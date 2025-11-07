@@ -1,35 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import SearchBar from './components/SearchBar';
+import WeatherDisplay from './components/WeatherDisplay';
+import ToggleTheme from './components/ToggleTheme';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [theme, setTheme] = useState('light');
+  const [unit] = useState('imperial'); // add toggle in Phase 2
+  const [data, setData] = useState(null);
+
+  const onSearch = async (city) => {
+    // Phase 2, call weatherApi and setData
+    setData(null);
+  };
+
+  const onToggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.setAttribute('data-bs-theme', next); // Bootstrap 5.3 theme
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="container py-4">
+      <header className="d-flex justify-content-between align-items-center mb-4">
+        <h1 className="h3 m-0">Weather App</h1>
+        <div className="d-flex gap-2">
+          <ToggleTheme theme={theme} onToggle={onToggleTheme} />
+        </div>
+      </header>
 
-export default App
+      <SearchBar onSearch={onSearch} />
+      <WeatherDisplay data={data} unit={unit} />
+    </div>
+  );
+}
