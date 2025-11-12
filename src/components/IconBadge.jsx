@@ -29,7 +29,7 @@ export default function IconBadge({code, alt = 'Weather icon' }){
 
     if (!src || broken) {
         // Accessible emoji fallback with sr-only label.
-        return ( <span className="fs-1" aria-label={alt} title={alt}>
+        return ( <span className="fs-1" role="img" aria-label={alt} title={alt}>
             {emojiFallback(alt)}
         </span>
         )
@@ -41,6 +41,7 @@ export default function IconBadge({code, alt = 'Weather icon' }){
             width="64"
             height="64"
             alt={alt}
+            decoding="async"
             onError={() => setBroken(true)}
             loading="lazy"
         />
