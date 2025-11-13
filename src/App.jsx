@@ -63,10 +63,10 @@ export default function App() {
       {/* Loading: show a stable skeleton card (no layout shift) */}
       {loading && <LoadingSkeleton />}
 
-      {/* Either show the data or empty state. WeatherDisplay also renders a default message */}
+      {/* Either show the data or empty state.*/}
       {!loading && data && <WeatherDisplay data={data} unit={unit} />}
 
-      {/* Subtle, ally-friendly empty helper under the search bar */}
+      {/* Subtle, a11y-friendly empty helper under the search bar */}
       {!loading && !data && (
         <p className="mt-3 text-muted" role="status" aria-live="polite">
           Search a city to see weather.
