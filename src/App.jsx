@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import WeatherDisplay from './components/WeatherDisplay';
 import ToggleTheme from './components/ToggleTheme';
 import ErrorAlert from './components/ErrorAlert';
+import LoadingSkeleton from './components/LoadingSkeleton';
 import { getCurrentWeather } from './services/weatherApi';
 
 export default function App() {
@@ -59,11 +60,19 @@ export default function App() {
 
       <SearchBar onSearch={onSearch} />
 
-      {/* Loading feedback to help user understand what's happening */}
-      {loading && <p className="mt-3 text-muted">Loading weather...</p>}
+      {/* Loading: show a stable skeleton card (no layout shift) */}
+      {loading && <LoadingSkeleton />}
 
-      {/* Either show the data or and actionable error */}
-      {!loading && <WeatherDisplay data={data} unit={unit} />}
+      {/* Either show the data or empty state. WeatherDisplay also renders a default message */}
+      {!loading && data && <WeatherDisplay data={data} unit={unit} />}
+
+      {/* Subtle, ally-friendly empty helper under the search bar */}
+      {!loading && !data && (
+        <p className="mt-3 text-muted" role="status" aria-live="polite">
+          Search a city to see weather.
+        </p>
+      )}
+
       <ErrorAlert 
         message={error?.message}
         code={error?.code}
