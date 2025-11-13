@@ -13,7 +13,6 @@ export default function WeatherDisplay({ data, unit = 'imperial' }) {
                 <Current
                     city={name}
                     country={sys.country}
-                    temp={main.temp}
                     unit={unit}
                     conditionMain={w.main}
                     iconCode={w.icon}

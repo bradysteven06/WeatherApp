@@ -20,18 +20,23 @@ export default function App() {
 
   // UI states for smooth UX
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);   // { message, code }
+  const [lastQuery, setLastQuery] = useState(null);
 
   // Called by SearchBar when user submits a city
   const onSearch = async (city) => {
-    setError('');
+    setError(null);
     setLoading(true);
     try {
+      setLastQuery(city);
       const result = await getCurrentWeather(city, unit);
       setData(result);
     } catch (e) {
       setData(null);
-      setError(e?.message || 'Something went wrong.');
+      setError({
+        message: e?.message || 'Something went wrong.',
+        code: e?.code || 'UNKNOWN'
+      });
     } finally {
       setLoading(false);
     }
@@ -59,7 +64,11 @@ export default function App() {
 
       {/* Either show the data or and actionable error */}
       {!loading && <WeatherDisplay data={data} unit={unit} />}
-      <ErrorAlert message={error} />
+      <ErrorAlert 
+        message={error?.message}
+        code={error?.code}
+        onRetry={lastQuery ? () => onSearch(lastQuery) : undefined}
+      />
     </div>
   );
 }

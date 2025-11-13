@@ -68,7 +68,7 @@ export async function getCurrentWeather(city, unit = 'imperial') {
 
         const { data } = await axios.get(`${BASE}/weather`, { params });
 
-        // Normalize the response shape for UI (make Ui resilient)
+        // Normalize the response shape for UI (make UI resilient)
         const normalized = {
             id: data.id,
             name: data.name,
