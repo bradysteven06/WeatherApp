@@ -2,17 +2,22 @@ import Current from './Current';
 import Details from './Details';
 
 export default function WeatherDisplay({ data, unit = 'imperial' }) {
-    if (!data) return <p className="text-muted mt-3">Search a city to see weather.</p>;
-
     const { name, main = {}, weather = [], wind = {}, sys ={} } = data;
     const w = weather[0] || {};
+    const headingId = 'wx-heading';
 
     return (
-        <div className="card shadow-sm mt-3">
+        <section
+            className="card shadow-sm mt-3"
+            role="region"
+            aria-labelledby={headingId}
+            aria-live="polite"
+        >
             <div className="card-body">
                 <Current
                     city={name}
                     country={sys.country}
+                    headingId={headingId}
                     conditionMain={w.main}
                     iconCode={w.icon}
                     description={w.description}
@@ -29,6 +34,6 @@ export default function WeatherDisplay({ data, unit = 'imperial' }) {
                     conditionMain={w.main}
                 />
             </div>
-        </div>
+        </section>
     );
 }

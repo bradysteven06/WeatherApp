@@ -11,11 +11,12 @@ export default function Current({
     conditionMain,
     iconCode,
     description,
+    headingId,      // id to apply on the heading for aria-labelledby
 }) {
 
     return (
         <div className="d-flex justify-content-between align-items-start mb-2">
-            <h2 className="h4 mb-0" aria-live="polite">
+            <h2 id={headingId} className="h4 mb-0">
                 {city}
                 {country ? `, ${country}` : ''}
             </h2>

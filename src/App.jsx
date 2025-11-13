@@ -50,7 +50,7 @@ export default function App() {
   };
 
   return (
-    <div className="container py-4">
+    <div className="container py-4" aria-busy={loading ? 'true' : 'false'}>
       <header className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="h3 m-0">Weather App</h1>
         <div className="d-flex gap-2">
