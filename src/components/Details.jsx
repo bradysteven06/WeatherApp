@@ -48,7 +48,7 @@ export default function Details({
             </div>
             <div>
                 <div className="fw-semibold">{conditionMain || '-'}</div>
-                <small className="text-muted">
+                <small className="text-body-secondary">
                     Feels like {fmtTemp(feelsLike)}{showUnit}
                     {' · '}Humidity {fmtTemp(humidity)}%
                     {' · '}Wind {fmtWind(windSpeed)} {windUnit}

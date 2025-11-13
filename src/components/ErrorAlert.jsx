@@ -38,7 +38,7 @@ export default function ErrorAlert({ message, code, onRetry }) {
             {code === 'NETWORK' && typeof onRetry === 'function' && (
                 <button
                     type="button"
-                    className="btn btn-sm btn-outline-light ms-3"
+                    className="btn btn-sm btn-light ms-3"
                     onClick={onRetry}
                 >
                     Retry
