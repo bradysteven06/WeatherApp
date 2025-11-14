@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import SearchBar from './components/SearchBar';
 import WeatherDisplay from './components/WeatherDisplay';
 import ToggleTheme from './components/ToggleTheme';
+import ToggleUnit from './components/ToggleUnit';
 import ErrorAlert from './components/ErrorAlert';
 import LoadingSkeleton from './components/LoadingSkeleton';
 import { getCurrentWeather } from './services/weatherApi';
@@ -22,7 +23,11 @@ export default function App() {
     if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0d12' : '#ffffff');
   }, [theme]);
   
-  const [unit] = useState('imperial'); // TODO: add toggle for unit
+  const getInitialUnit = () => localStorage.getItem('wx:unit') === 'metric' ? 'metric' : 'imperial';
+  const [unit, setUnit] = useState(getInitialUnit);
+  useEffect(() => {
+    localStorage.setItem('wx:unit', unit);
+  }, [unit]);
   
   // Holds the current city's weather (normalized object from weatherApi.js)
   const [data, setData] = useState(null);
@@ -57,11 +62,31 @@ export default function App() {
     setTheme(next);
   };
 
+  const onChangeUnit = async (nextUnit) => {
+    if (nextUnit === unit) return;
+    setUnit(nextUnit);
+    // Re-fetch current city in new unit if already have a result or a last query
+    if (lastQuery) {
+      try {
+        setLoading(true);
+        const result = await getCurrentWeather(lastQuery, nextUnit);
+        setData(result);
+        setError(null);
+      } catch (e) {
+        setData(null);
+        setError({ message: e?.message || 'Something went wrong.', code: e?.code || 'UNKNOWN' });
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+
   return (
     <div className="container py-4" aria-busy={loading ? 'true' : 'false'}>
-      <header className="d-flex justify-content-between align-items-center mb-4">
+      <header className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 className="h3 m-0">Weather App</h1>
-        <div className="d-flex gap-2">
+        <div className="d-flex gap-2 align-items-center">
+          <ToggleUnit unit={unit} onChange={onChangeUnit} />
           <ToggleTheme theme={theme} onToggle={onToggleTheme} />
         </div>
       </header>
