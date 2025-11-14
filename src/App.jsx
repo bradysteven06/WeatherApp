@@ -7,11 +7,19 @@ import LoadingSkeleton from './components/LoadingSkeleton';
 import { getCurrentWeather } from './services/weatherApi';
 
 export default function App() {
-  // app wide theme (Bootstrap reads data-bs-theme on <html>)
-  const [theme, setTheme] = useState('light');
-  // ensure Bootstrap reads the initial theme
+  // Theme: init from localStorage or system preference
+  const getInitialTheme = () => {
+    const saved = localStorage.getItem('wx:theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  const [theme, setTheme] = useState(getInitialTheme);
   useEffect(() => {
     document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('wx:theme', theme);
+    // update <meta name="theme-color"> for nicer mobile address bar
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0d12' : '#ffffff');
   }, [theme]);
   
   const [unit] = useState('imperial'); // TODO: add toggle for unit
