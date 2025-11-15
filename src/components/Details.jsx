@@ -42,7 +42,7 @@ export default function Details({
     const set = toLocalTime(sunset);
 
     return (
-        <div className="d-flex align-items-center gap-3">
+        <div className="d-flex align-items-center gap-3 flex-wrap">
             <div className="display-6" aria-label={`Current temperature ${fmtTemp(temp)} ${showUnit}`}>
                 {fmtTemp(temp)}{showUnit}
             </div>

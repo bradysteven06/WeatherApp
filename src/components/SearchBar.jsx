@@ -10,7 +10,7 @@ export default function SearchBar({ onSearch }) {
         if (q) onSearch(q);
     };
     return (
-        <form className="d-flex gap-2" onSubmit={submit} role="search" aria-label="City search">
+        <form className="d-flex gap-2 flex-column flex-sm-row" onSubmit={submit} role="search" aria-label="City search">
             <label htmlFor={inputId} className="visually-hidden">City</label>
             <input
                 className="form-control"

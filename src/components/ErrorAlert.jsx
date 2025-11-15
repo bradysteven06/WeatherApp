@@ -26,7 +26,7 @@ export default function ErrorAlert({ message, code, onRetry }) {
     return (
         <div
             ref={ref}
-            className="alert alert-danger mt-3 d-flex justify-content-between align-items-start"
+            className="alert alert-danger mt-3 d-flex justify-content-between align-items-start gap-2"
             role="alert"
             aria-live="assertive"
             tabIndex={-1}

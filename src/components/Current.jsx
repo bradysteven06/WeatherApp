@@ -15,8 +15,8 @@ export default function Current({
 }) {
 
     return (
-        <div className="d-flex justify-content-between align-items-start mb-2">
-            <h2 id={headingId} className="h4 mb-0">
+        <div className="d-flex justify-content-between align-items-start mb-2 gap-2">
+            <h2 id={headingId} className="h4 mb-0 text-truncate" style={{maxWidth: '80%'}}>
                 {city}
                 {country ? `, ${country}` : ''}
             </h2>
