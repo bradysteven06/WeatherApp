@@ -14,3 +14,10 @@ React + Vite + Bootstrap weather viewer using a public API.
 
 ## Stack
 React, Vite, Bootstrap 5
+
+## Features
+- Live city weather (OpenWeatherMap)
+- Dark/Light mode with persistence (respects system preference on first visit)
+- °F/°C toggle with persistence
+- Responsive layout (mobile-first)
+- Clear error states + loading skeleton
