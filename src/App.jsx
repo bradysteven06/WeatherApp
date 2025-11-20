@@ -18,9 +18,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-bs-theme', theme);
     localStorage.setItem('wx:theme', theme);
-    // update <meta name="theme-color"> for nicer mobile address bar
-    const meta = document.getElementById('theme-color-meta');
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0b0d12' : '#ffffff');
   }, [theme]);
   
   const getInitialUnit = () => localStorage.getItem('wx:unit') === 'metric' ? 'metric' : 'imperial';
@@ -82,7 +79,7 @@ export default function App() {
   }
 
   return (
-    <div className="container py-4" aria-busy={loading ? 'true' : 'false'}>
+    <div className="py-4" aria-busy={loading ? 'true' : 'false'}>
       <header className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 className="h3 m-0">Weather App</h1>
         <div className="header-controls">
