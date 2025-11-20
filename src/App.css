@@ -39,3 +39,25 @@
 .read-the-docs {
   color: #888;
 }
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 480px) {
+  .header-controls {
+    flex-wrap: nowrap;
+  }
+}
+
+.btn-theme {
+  min-width: 14ch;
+}
+
+.btn-unit {
+  width: 3.25rem;
+  justify-content: center;
+}

@@ -85,7 +85,7 @@ export default function App() {
     <div className="container py-4" aria-busy={loading ? 'true' : 'false'}>
       <header className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 className="h3 m-0">Weather App</h1>
-        <div className="d-flex gap-2 align-items-center">
+        <div className="header-controls">
           <ToggleUnit unit={unit} onChange={onChangeUnit} />
           <ToggleTheme theme={theme} onToggle={onToggleTheme} />
         </div>
