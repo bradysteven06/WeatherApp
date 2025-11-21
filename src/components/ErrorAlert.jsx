@@ -21,6 +21,8 @@ export default function ErrorAlert({ message, code, onRetry }) {
     tip = 'Tip: Try "City, CC" (e.g., Paris, FR).';
   } else if (code === "NETWORK") {
     tip = "Check your connection.";
+  } else if (code === "CONFIG") {
+    tip = "If you are the developer, check your API key configuration.";
   }
 
   return (

@@ -49,9 +49,11 @@ function writeCache(city, unit, data) {
 
 export async function getCurrentWeather(city, unit = "imperial") {
   if (!KEY) {
-    throw new Error(
-      "Missing OpenWeatherMap key. Add VITE_OWM_API_KEY to .env.local."
+    const e = new Error(
+      "Weather service is not available. Please try again later."
     );
+    e.code = "CONFIG";
+    throw e;
   }
 
   // Try cache first (instant UI, fewer API calls)
@@ -96,6 +98,14 @@ export async function getCurrentWeather(city, unit = "imperial") {
       const msg = `No results for "${city}". Check spelling or try "City, CountryCode" (e.g., "Paris, FR").`;
       const e = new Error(msg);
       e.code = "CITY_NOT_FOUND";
+      throw e;
+    }
+
+    if (err.response?.status === 401) {
+      const e = new Error(
+        "Weather service is not available. Please try again later."
+      );
+      e.code = "CONFIG";
       throw e;
     }
 

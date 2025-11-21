@@ -127,9 +127,11 @@ export default function App() {
   const onChangeUnit = async (nextUnit) => {
     if (nextUnit === unit) return;
     setUnit(nextUnit);
+
     // Re-fetch current city in new unit if already have a result or a last query
     if (lastQuery) {
       try {
+        setError(null);
         setLoading(true);
         const result = await getCurrentWeather(lastQuery, nextUnit);
         setData(result);
@@ -169,7 +171,7 @@ export default function App() {
       {!loading && data && <WeatherDisplay data={data} unit={unit} />}
 
       {/* Subtle, a11y-friendly empty helper under the search bar */}
-      {!loading && !data && (
+      {!loading && !data && !error && (
         <p className="mt-3 text-muted" role="status" aria-live="polite">
           Search a city to see weather.
         </p>
