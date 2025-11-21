@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +32,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_OWM_API_KEY: ${{ secrets.VITE_OWM_API_KEY }}
+          VITE_OWM_BASE: https://api.openweathermap.org/data/2.5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
