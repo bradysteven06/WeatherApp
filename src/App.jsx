@@ -7,6 +7,54 @@ import ErrorAlert from './components/ErrorAlert';
 import LoadingSkeleton from './components/LoadingSkeleton';
 import { getCurrentWeather } from './services/weatherApi';
 
+// Map weather data -> background class
+function deriveBgStyle(data) {
+  if (!data) {
+    return 'linear-gradient(135deg, #e0f2ff, #f5f7ff)';
+  }
+
+  let icon = '';
+  let main = '';
+  let desc = '';
+
+  if (Array.isArray(data.weather) && data.weather[0]) {
+    const w = data.weather[0];
+    if (w.main) main = String(w.main).toLowerCase();
+    if (w.description) desc = String(w.description).toLowerCase();
+    if (w.icon) icon = String(w.icon);
+  }
+
+  const isNight = icon.endsWith('n')
+  const text = `${main} ${desc}`.trim();
+
+  if (!text) {
+    // Still have nothing meaningful - just fall back.
+    return isNight ? 'linear-gradient(135deg, #212121, #000000)' : 'linear-gradient(135deg, #e0f2ff, #f5f7ff)';
+  }
+
+  if (text.includes('thunder')) return 'radial-gradient(circle at top, #ffeb3b, #263238)';
+  if (text.includes('drizzle') || text.includes('rain')) return 'linear-gradient(135deg, #4a6572, #1a237e)';
+  if (text.includes('snow')) return 'linear-gradient(135deg, #e0f7fa, #eceff1)';
+  if (
+    text.includes('mist') ||
+    text.includes('fog') ||
+    text.includes('haze') ||
+    text.includes('smoke') ||
+    text.includes('dust')
+  ) {
+    return 'linear-gradient(135deg, #cfd8dc, #90a4ae)';
+  }
+  if (text.includes('cloud')) {
+    return isNight ? 'linear-gradient(135deg, #37474f, #000000)' : 'linear-gradient(135deg, #e0eafc, #cfdef3)';
+  }
+  if (text.includes('clear')) {
+    return isNight ? 'radial-gradient(circle at top, #1a237e, #000000)' : 'radial-gradient(circle at top, #fff9c4, #90caf9)';
+  }
+
+  // Fallback if API returns something odd
+  return isNight ? 'linear-gradient(135deg, #212121, #000000)' : 'linear-gradient(135deg, #e0f2ff, #f5f7ff)';
+}
+
 export default function App() {
   // Theme: init from localStorage or system preference
   const getInitialTheme = () => {
@@ -33,6 +81,9 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);   // { message, code }
   const [lastQuery, setLastQuery] = useState(null);
+
+  // Compute background class from current weather
+  const bgStyle = { '--wx-bg-gradient': deriveBgStyle(data) };
 
   // Called by SearchBar when user submits a city
   const onSearch = async (city) => {
@@ -79,7 +130,7 @@ export default function App() {
   }
 
   return (
-    <div className="py-4" aria-busy={loading ? 'true' : 'false'}>
+    <div className="wx-shell py-4" style={bgStyle} aria-busy={loading ? 'true' : 'false'}>
       <header className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
         <h1 className="h3 m-0">Weather App</h1>
         <div className="header-controls">

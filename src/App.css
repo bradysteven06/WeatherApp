@@ -41,3 +41,35 @@
   width: 3.25rem;
   justify-content: center;
 }
+
+/* ---------- Dynamic background shell ---------- */
+
+/* Wrapper around the app content. Lives inside #root, so it won't break layout. */
+.wx-shell {
+  min-height: 100vh;
+  border-radius: 1.5rem;
+  background-color: var(--bs-body-bg);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+/* Faint dynamic gradient behind the content */
+.wx-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(
+    --wx-bg-gradient,
+    linear-gradient(135deg, #e0f2ff, #f5f7ff)
+  );
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all children sit above the overlay */
+.wx-shell > * {
+  position: relative;
+  z-index: 1;
+}
